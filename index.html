@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPM | Terminal de Avaliação de Candidatura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #a0a0a0;
+            overflow: hidden;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .no-select {
+            user-select: none;
+        }
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.02) 50%, rgba(255,255,255,0));
+            background-size: 100% 4px;
+            animation: scan 5s linear infinite;
+            opacity: 0.2;
+        }
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100vh; }
+        }
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            animation: noise-anim 0.5s steps(2) infinite;
+            opacity: 0.03;
+        }
+        @keyframes noise-anim {
+            0% { transform: translate(0,0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0,0); }
+        }
+        .answer-option {
+            border-color: #374151;
+            transition: all 0.2s ease-in-out;
+        }
+        .answer-option:hover {
+            background-color: rgba(55, 65, 81, 0.5);
+            border-color: #4f5b6b;
+        }
+        .answer-option.selected {
+            background-color: rgba(59, 130, 246, 0.3);
+            border-color: #3B82F6;
+            color: #e5e7eb;
+        }
+        .text-glow {
+            text-shadow: 0 0 5px currentColor;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen no-select">
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
+    <div id="main-container" class="w-full max-w-4xl mx-auto p-4 md:p-8 relative z-10">
+
+        <!-- TELA INICIAL -->
+        <div id="start-screen" class="text-center">
+            <div class="flex justify-center mb-4">
+                 <svg class="w-24 h-24 text-yellow-400 text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l-3.5-2 3.5-2 3.5 2-3.5 2zM12 22v-8"></path></svg>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-100 mb-2 font-mono tracking-wider">TERMINAL SEGURO</h1>
+            <h2 class="text-xl md:text-2xl font-semibold text-yellow-400 mb-6 text-glow">AVALIAÇÃO DE CANDIDATURA - CORREGEDORIA GERAL</h2>
+            <div class="bg-black bg-opacity-30 border border-red-500/50 rounded-lg p-6 text-left max-w-2xl mx-auto mt-8">
+                <h3 class="font-bold text-lg text-red-400 mb-3 font-mono text-glow">>>> DIRETIVA DE SEGURANÇA 01 <<<</h3>
+                <ul class="list-none space-y-2 text-gray-300">
+                    <li><span class="font-mono text-red-400 mr-2">[!]</span> A avaliação é cronometrada e não pode ser pausada.</li>
+                    <li><span class="font-mono text-red-400 mr-2">[!]</span> Perda de foco da janela (trocar de aba, minimizar) resultará em <strong class="text-red-300">REPROVAÇÃO IMEDIATA</strong>.</li>
+                    <li><span class="font-mono text-red-400 mr-2">[!]</span> Respostas submetidas são finais e não podem ser alteradas.</li>
+                    <li><span class="font-mono text-red-400 mr-2">[!]</span> Tentativas de burlar o sistema serão registradas e acarretarão em exclusão permanente.</li>
+                </ul>
+            </div>
+            <div class="mt-8">
+                <p class="mb-4 font-mono">AUTENTIQUE-SE PARA INICIAR O PROTOCOLO DE AVALIAÇÃO.</p>
+                <form id="start-form" class="flex flex-col items-center justify-center gap-4 max-w-xl mx-auto">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input id="ingame-name" type="text" placeholder="NOME (DENTRO DO JOGO)" class="bg-gray-900 bg-opacity-50 text-white border border-gray-600 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 font-mono" required>
+                        <input id="real-name" type="text" placeholder="NOME (FORA DO JOGO)" class="bg-gray-900 bg-opacity-50 text-white border border-gray-600 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 font-mono" required>
+                        <input id="ingame-id" type="text" placeholder="ID (NO JOGO)" class="bg-gray-900 bg-opacity-50 text-white border border-gray-600 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 font-mono" required>
+                        <input id="discord-tag" type="text" placeholder="DISCORD (Ex: usuario#1234)" class="bg-gray-900 bg-opacity-50 text-white border border-gray-600 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 font-mono" required>
+                    </div>
+                    <!-- TERMOS DE ACORDO -->
+                    <div class="mt-4 flex items-center justify-center gap-2">
+                        <input id="terms-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-500 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 cursor-pointer">
+                        <label for="terms-checkbox" class="ms-2 text-sm font-medium text-gray-300 cursor-pointer">Li e concordo com todas as diretivas de segurança.</label>
+                    </div>
+
+                    <button type="submit" id="start-button" class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-8 rounded-md transition-colors w-full md:w-1/2 mt-2 font-mono tracking-widest border border-red-600 shadow-lg shadow-red-900/50 disabled:bg-gray-700 disabled:border-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed disabled:shadow-none" disabled>
+                        INICIAR
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TELA DA PROVA -->
+        <div id="quiz-screen" class="hidden">
+            <div class="border-b-2 border-yellow-400/50 pb-4 mb-6">
+                 <div class="flex justify-between items-center">
+                    <h1 class="text-xl font-bold text-yellow-400 font-mono tracking-wider text-glow">AVALIAÇÃO EM ANDAMENTO...</h1>
+                    <div class="text-right">
+                        <p id="timer" class="text-2xl font-mono font-bold text-red-500 text-glow">15:00</p>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-1.5 mt-2">
+                    <div id="progress-bar" class="bg-yellow-400 h-1.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="question-container">
+                <p id="question-counter" class="font-mono text-yellow-400 mb-2"></p>
+                <h2 id="question-title" class="text-2xl font-semibold text-gray-100 mb-6"></h2>
+                <div id="answer-options" class="space-y-3">
+                    <!-- Opções -->
+                </div>
+            </div>
+
+            <div class="mt-8 text-right">
+                <button id="next-button" class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-md transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed font-mono tracking-widest border border-blue-600 shadow-lg shadow-blue-900/50">
+                    CONFIRMAR
+                </button>
+            </div>
+        </div>
+
+        <!-- TELA DE RESULTADO -->
+        <div id="result-screen" class="hidden text-center">
+             <div id="result-icon" class="mb-4"></div>
+            <h1 id="result-title" class="text-5xl font-bold mb-2 font-mono tracking-widest"></h1>
+            <p id="result-subtitle" class="text-xl text-gray-400 mb-8"></p>
+            <div class="bg-black bg-opacity-30 border border-gray-700 rounded-lg p-6 max-w-md mx-auto">
+                <p class="text-lg font-mono">PONTUAÇÃO FINAL</p>
+                <p id="final-score" class="text-6xl font-bold text-yellow-400 my-2 font-mono text-glow"></p>
+                <p id="result-message" class="text-gray-300 mt-4"></p>
+            </div>
+             <button onclick="window.location.reload()" class="mt-8 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md transition-colors font-mono tracking-widest">
+                FECHAR TERMINAL
+            </button>
+        </div>
+    </div>
+
+    <!-- Formulário oculto para enviar os resultados -->
+    <form id="result-form" class="hidden" method="POST">
+        <input type="text" name="Nome no Jogo">
+        <input type="text" name="Nome Real">
+        <input type="text" name="ID no Jogo">
+        <input type="text" name="Discord">
+        <input type="text" name="Resultado Final">
+        <input type="text" name="Pontuação">
+        <input type="hidden" name="Termos Aceitos" value="Sim">
+        <textarea name="Respostas Detalhadas"></textarea>
+    </form>
+
+    <script>
+        // --- CONFIGURAÇÃO DO QUIZ ---
+        const FORM_ENDPOINT = "https://formspree.io/f/xzzvgneq"; // URL ATUALIZADA
+
+        const quizDurationInMinutes = 15;
+        const passingScorePercentage = 70;
+        const questions = [
+            // --- Questões de Ética e Denúncia ---
+            { question: "Você testemunha seu parceiro agredindo um suspeito já rendido e desarmado. Qual sua ação imediata?", answers: ["Intervenho para cessar a agressão e reporto o ocorrido ao superior imediato.", "Apoio meu parceiro, pois o suspeito provavelmente mereceu.", "Finjo que não vi para não criar problemas com meu parceiro.", "Gravo a situação discretamente para usar contra meu parceiro no futuro."], correct: 0 },
+            { question: "Um oficial de alta patente oferece uma promoção em troca de 'vista grossa' em uma investigação sobre ele. Como você procede?", answers: ["Recuso a oferta e reporto a tentativa de suborno à Corregedoria imediatamente.", "Aceito a promoção, pois é uma oportunidade única na carreira.", "Recuso a oferta, mas não reporto para não sofrer retaliação.", "Peço um tempo para pensar, enquanto junto provas contra o oficial."], correct: 0 },
+            { question: "Você descobre que um colega está vendendo informações de operações para criminosos. O que você faz?", answers: ["Confronto o colega e exijo uma parte dos lucros.", "Ignoro a situação, pois não é problema meu.", "Coleto provas de forma sigilosa e apresento um dossiê completo à Corregedoria.", "Informo anonimamente a um jornalista para expor o caso."], correct: 2 },
+            { question: "Você encontra evidências que inocentam um criminoso notório, cuja condenação foi um grande marco para o departamento. Divulgar isso mancharia a reputação da polícia. O que você faz?", answers: ["Apresento as provas aos seus superiores e à justiça, pois a verdade deve prevalecer.", "Destruo as evidências para proteger a reputação do departamento.", "Guardo as evidências como uma 'carta na manga' para uso futuro.", "Vazo as evidências para a imprensa de forma anônima."], correct: 0 },
+            { question: "O que significa 'integridade' no contexto do trabalho policial?", answers: ["Ser leal aos seus colegas acima de tudo.", "Nunca admitir um erro para manter a autoridade.", "Fazer a coisa certa, mesmo quando ninguém está olhando, e aderir a um código moral forte.", "Sempre seguir as ordens, não importa quais sejam."], correct: 2 },
+            { question: "Durante uma investigação interna, você descobre que o alvo é um amigo próximo. Como isso afeta sua conduta?", answers: ["Continuo a investigação com total imparcialidade, tratando-o como qualquer outro suspeito.", "Peço para ser retirado do caso para evitar conflito de interesses.", "Conduzo a investigação de forma a minimizar os danos ao meu amigo.", "Aviso meu amigo sobre a investigação para que ele possa se preparar."], correct: 0 },
+            // --- Novas Questões de Procedimento e Fiscalização ---
+            { question: "Ao fiscalizar a viatura de um colega antes do turno, você encontra uma arma pessoal não registrada no porta-luvas. Qual o procedimento correto?", answers: ["Ignoro a arma, pois cada um é responsável por seu equipamento.", "Retiro a arma e a guardo para mim.", "Questiono o colega sobre a arma e, dependendo da resposta, decido o que fazer.", "Comunico imediatamente ao superior de dia para que ele tome as medidas administrativas cabíveis."], correct: 3 },
+            { question: "Você é o primeiro a chegar em uma cena de crime com uma vítima baleada, mas ainda viva. Qual é a sua prioridade absoluta?", answers: ["Isolar a área com fita para preservar todas as evidências.", "Prestar os primeiros socorros à vítima e chamar o socorro médico imediatamente.", "Perseguir um suspeito que foi visto fugindo do local.", "Coletar a arma do crime para que não seja adulterada."], correct: 1 },
+            { question: "Durante uma abordagem, o cidadão se recusa a colocar as mãos na cabeça, mas permanece parado e sem demonstrar agressividade. Qual o nível de força apropriado?", answers: ["Uso imediato do taser para garantir a submissão.", "Escalonar a força com um golpe de cassetete para forçar a cooperação.", "Manter a verbalização, repetir a ordem de forma clara e firme, e solicitar apoio se necessário.", "Sacar a arma de fogo e apontar para o indivíduo para intimidá-lo."], correct: 2 },
+            { question: "Você está em uma perseguição e o veículo suspeito entra em uma área escolar movimentada. Qual é a decisão mais prudente?", answers: ["Continuar a perseguição a todo custo, pois a captura é a prioridade.", "Reduzir a velocidade, informar a central sobre a situação e o último local visto, e avaliar o cancelamento da perseguição para evitar danos colaterais.", "Atirar nos pneus do veículo suspeito, mesmo com o risco de atingir civis.", "Tentar uma manobra de PIT (Técnica de Imobilização de Precisão) imediatamente, apesar do alto risco."], correct: 1 },
+            { question: "Durante uma blitz de rotina, um veículo fura o bloqueio. Qual o primeiro passo do procedimento?", answers: ["Atirar contra o veículo em fuga.", "Abandonar a blitz e iniciar uma perseguição com todas as viaturas disponíveis.", "Manter a posição na blitz e apenas observar o veículo se afastar.", "Comunicar via rádio as características do veículo (placa, modelo, cor) e sua direção de fuga para que outras unidades possam interceptá-lo."], correct: 3 },
+            { question: "Um civil influente, conhecido por ter conexões com o prefeito, é pego em uma infração de trânsito grave. Seu superior ordena que você 'deixe pra lá'. Qual sua atitude?", answers: ["Obedeço a ordem para não contrariar um superior e uma figura poderosa.", "Aplico a lei conforme o procedimento padrão, ignorando a ordem ilegal, e me preparo para as consequências.", "Libero o civil, mas faço um relatório interno detalhado sobre a ordem recebida para me proteger.", "Finjo que vou liberar, mas aplico a multa assim que meu superior se afasta."], correct: 2 }
+        ];
+
+        // --- ELEMENTOS DO DOM ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startForm = document.getElementById('start-form');
+        const nextButton = document.getElementById('next-button');
+        const questionCounter = document.getElementById('question-counter');
+        const timerDisplay = document.getElementById('timer');
+        const questionTitle = document.getElementById('question-title');
+        const answerOptionsContainer = document.getElementById('answer-options');
+        const progressBar = document.getElementById('progress-bar');
+        const termsCheckbox = document.getElementById('terms-checkbox');
+        const startButton = document.getElementById('start-button');
+        
+        // --- VARIÁVEIS DE ESTADO ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timerInterval;
+        let selectedAnswerIndex = null;
+        let userAnswers = [];
+        let candidateData = {};
+
+        // --- LÓGICA DO QUIZ ---
+        termsCheckbox.addEventListener('change', () => {
+            startButton.disabled = !termsCheckbox.checked;
+        });
+
+        startForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            candidateData = {
+                ingameName: document.getElementById('ingame-name').value,
+                realName: document.getElementById('real-name').value,
+                ingameId: document.getElementById('ingame-id').value,
+                discordTag: document.getElementById('discord-tag').value,
+            };
+
+            if (Object.values(candidateData).some(val => val.trim() === '')) {
+                alert('Por favor, preencha todos os campos para continuar.');
+                return;
+            }
+
+            if (!termsCheckbox.checked) {
+                alert('Você precisa concordar com as diretivas de segurança para iniciar.');
+                return;
+            }
+            
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            quizScreen.classList.add('fade-in');
+            
+            startTimer(quizDurationInMinutes * 60);
+            displayQuestion();
+            
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+        });
+
+        function displayQuestion() {
+            selectedAnswerIndex = null;
+            nextButton.disabled = true;
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            const progress = ((currentQuestionIndex) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            questionCounter.textContent = `PERGUNTA ${String(currentQuestionIndex + 1).padStart(2, '0')} / ${questions.length}`;
+            questionTitle.textContent = currentQuestion.question;
+            answerOptionsContainer.innerHTML = '';
+
+            currentQuestion.answers.forEach((answer, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('answer-option', 'fade-in', 'p-4', 'border-2', 'rounded-md', 'cursor-pointer', 'transition-all');
+                optionElement.style.animationDelay = `${index * 100}ms`;
+                optionElement.innerHTML = `<span class="font-mono text-blue-400 mr-3">[${index + 1}]</span> ${answer}`;
+                optionElement.dataset.index = index;
+                optionElement.addEventListener('click', () => selectAnswer(index));
+                answerOptionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function selectAnswer(index) {
+            selectedAnswerIndex = index;
+            const options = document.querySelectorAll('.answer-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+            nextButton.disabled = false;
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (selectedAnswerIndex === null) return;
+
+            userAnswers.push(selectedAnswerIndex);
+            if (selectedAnswerIndex === questions[currentQuestionIndex].correct) {
+                score++;
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                progressBar.style.width = `100%`;
+                setTimeout(() => endQuiz(), 500);
+            }
+        });
+
+        function startTimer(duration) {
+            let timer = duration;
+            timerInterval = setInterval(() => {
+                let minutes = parseInt(timer / 60, 10);
+                let seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerDisplay.textContent = `${minutes}:${seconds}`;
+
+                if (--timer < 0) {
+                    endQuiz({ timeOut: true });
+                }
+            }, 1000);
+        }
+
+        function endQuiz(options = {}) {
+            const { timeOut = false, cheated = false } = options;
+            clearInterval(timerInterval);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            resultScreen.classList.add('fade-in');
+
+            const resultIcon = document.getElementById('result-icon');
+            const resultTitle = document.getElementById('result-title');
+            const resultSubtitle = document.getElementById('result-subtitle');
+            const finalScore = document.getElementById('final-score');
+            const resultMessage = document.getElementById('result-message');
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            finalScore.textContent = `${percentage}%`;
+            let finalResultText = "";
+
+            if (cheated) {
+                resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-500 mx-auto text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>`;
+                resultTitle.textContent = "REPROVADO";
+                resultTitle.classList.add('text-red-500');
+                resultSubtitle.textContent = "Violação do Protocolo de Segurança";
+                finalScore.textContent = "0%";
+                resultMessage.textContent = "O teste foi encerrado por perda de foco da janela. Esta é uma violação direta das regras e resulta em reprovação automática. Sua candidatura foi indeferida.";
+                finalResultText = "REPROVADO (VIOLAÇÃO)";
+            } else if (timeOut) {
+                resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-500 mx-auto text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                resultTitle.textContent = "REPROVADO";
+                resultTitle.classList.add('text-red-500');
+                resultSubtitle.textContent = "Tempo Esgotado";
+                resultMessage.textContent = "Você não concluiu a avaliação dentro do tempo limite. Sua candidatura foi indeferida.";
+                finalResultText = "REPROVADO (TEMPO ESGOTADO)";
+            } else {
+                if (percentage >= passingScorePercentage) {
+                    resultIcon.innerHTML = `<svg class="w-24 h-24 text-green-500 mx-auto text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                    resultTitle.textContent = "APROVADO";
+                    resultTitle.classList.add('text-green-500');
+                    resultSubtitle.textContent = "Avaliação Concluída com Sucesso";
+                    resultMessage.textContent = "Você demonstrou o conhecimento e a conduta necessários para avançar no processo seletivo. Aguarde o contato de um oficial da Corregedoria.";
+                    finalResultText = "APROVADO";
+                } else {
+                    resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-500 mx-auto text-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                    resultTitle.textContent = "REPROVADO";
+                    resultTitle.classList.add('text-red-500');
+                    resultSubtitle.textContent = "Pontuação Insuficiente";
+                    resultMessage.textContent = "Sua pontuação não atingiu o mínimo necessário. Agradecemos seu interesse, mas sua candidatura foi indeferida neste momento.";
+                    finalResultText = "REPROVADO (PONTUAÇÃO INSUFICIENTE)";
+                }
+            }
+            // Envia os resultados
+            submitResults(finalResultText, `${score}/${questions.length} (${percentage}%)`);
+        }
+        
+        // --- NOVA FUNÇÃO PARA ENVIAR RESULTADOS ---
+        function submitResults(finalResult, scoreText) {
+            const form = document.getElementById('result-form');
+            form.action = FORM_ENDPOINT;
+
+            // Preenche os dados do candidato
+            form.querySelector('[name="Nome no Jogo"]').value = candidateData.ingameName;
+            form.querySelector('[name="Nome Real"]').value = candidateData.realName;
+            form.querySelector('[name="ID no Jogo"]').value = candidateData.ingameId;
+            form.querySelector('[name="Discord"]').value = candidateData.discordTag;
+            
+            // Preenche os resultados
+            form.querySelector('[name="Resultado Final"]').value = finalResult;
+            form.querySelector('[name="Pontuação"]').value = scoreText;
+
+            // Prepara o relatório detalhado
+            let detailedAnswers = "";
+            questions.forEach((q, index) => {
+                const userAnswerIndex = userAnswers[index];
+                const correctAnswerIndex = q.correct;
+                const userAnswerText = userAnswerIndex !== undefined ? q.answers[userAnswerIndex] : "NÃO RESPONDIDA";
+                const isCorrect = userAnswerIndex === correctAnswerIndex ? "CORRETA" : "INCORRETA";
+
+                detailedAnswers += `--- PERGUNTA ${index + 1} (${isCorrect}) ---\n`;
+                detailedAnswers += `Q: ${q.question}\n`;
+                detailedAnswers += `R: ${userAnswerText}\n\n`;
+            });
+            form.querySelector('[name="Respostas Detalhadas"]').value = detailedAnswers;
+
+            // Envia o formulário
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).catch(error => console.error('Erro ao enviar o formulário:', error));
+        }
+
+        // --- FUNÇÕES ANTI-CHEAT ---
+        function handleVisibilityChange() {
+            if (document.hidden) {
+                endQuiz({ cheated: true });
+            }
+        }
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
