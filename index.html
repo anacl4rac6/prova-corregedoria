@@ -3,32 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CGPM | Sistema de Avaliação de Candidatura</title>
+    <title>CGPM | Divisão de Assuntos Internos - Avaliação</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* gray-100 */
-            color: #374151; /* gray-700 */
+            background-color: #111827; /* gray-900 */
+            color: #d1d5db; /* gray-300 */
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
         }
         .no-select {
             user-select: none;
         }
         .answer-option {
-            border-color: #d1d5db; /* gray-300 */
+            border-color: #374151; /* gray-700 */
             transition: all 0.2s ease-in-out;
         }
         .answer-option:hover {
-            background-color: #e5e7eb; /* gray-200 */
-            border-color: #6b7280; /* gray-500 */
+            background-color: #1f2937; /* gray-800 */
+            border-color: #f59e0b; /* amber-500 */
         }
         .answer-option.selected {
-            background-color: #dbeafe; /* blue-100 */
-            border-color: #3b82f6; /* blue-500 */
-            color: #1e3a8a; /* blue-900 */
+            background-color: rgba(245, 158, 11, 0.1);
+            border-color: #f59e0b; /* amber-500 */
+            color: #fef3c7; /* amber-100 */
+        }
+        .form-input {
+            background-color: #1f2937; /* gray-800 */
+            border-color: #374151; /* gray-700 */
+        }
+        .form-input:focus {
+            --tw-ring-color: #f59e0b; /* amber-500 */
+            border-color: #f59e0b;
+        }
+        .btn-primary {
+             background-color: #d97706; /* amber-600 */
+             color: #111827;
+        }
+        .btn-primary:hover {
+             background-color: #f59e0b; /* amber-500 */
+        }
+         .btn-primary:disabled {
+            background-color: #374151; /* gray-700 */
+            color: #9ca3af; /* gray-400 */
+            cursor: not-allowed;
+        }
+        .text-accent {
+            color: #f59e0b; /* amber-500 */
+        }
+        .border-accent {
+            border-color: #f59e0b;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -41,43 +70,40 @@
 </head>
 <body class="flex items-center justify-center min-h-screen no-select p-4">
 
-    <div id="main-container" class="w-full max-w-4xl mx-auto relative z-10 bg-white p-6 md:p-10 rounded-lg shadow-2xl border border-gray-200">
+    <div id="main-container" class="w-full max-w-4xl mx-auto relative z-10 bg-gray-900/50 backdrop-blur-sm p-6 md:p-10 rounded-lg border border-gray-700 shadow-2xl shadow-black/50">
 
         <!-- TELA INICIAL -->
         <div id="start-screen" class="text-center">
-            <div class="flex justify-center items-center mb-4 gap-4">
-                 <svg class="w-16 h-16 text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2.25Zm0 16.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75Zm7.06-12.06a.75.75 0 1 1 1.06-1.06l1.062 1.062a.75.75 0 0 1-1.06 1.06L19.06 6.94Zm-15.12 0a.75.75 0 0 1 1.06 1.06L3.938 9.062a.75.75 0 0 1-1.06-1.06L3.94 6.938Zm15.12 10.122a.75.75 0 0 1 1.06-1.06l1.062 1.062a.75.75 0 1 1-1.06 1.06l-1.062-1.062ZM3.938 16.062a.75.75 0 1 1 1.06 1.06L3.938 18.188a.75.75 0 1 1-1.06-1.06l1.06-1.06ZM21.75 12a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 .75.75ZM4.5 12a.75.75 0 0 1-.75.75H2.25a.75.75 0 0 1 0-1.5H3.75a.75.75 0 0 1 .75.75ZM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
-                <div>
-                     <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Sistema de Avaliação Online</h1>
-                     <h2 class="text-lg md:text-xl font-semibold text-blue-800">Processo Seletivo - Corregedoria Geral</h2>
-                </div>
+            <div class="border-b-2 border-gray-700 pb-4 mb-6">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-100">Avaliação de Candidatura</h1>
+                <h2 class="text-lg md:text-xl font-semibold text-accent">Divisão de Assuntos Internos</h2>
             </div>
-            <hr class="my-6">
-            <div class="bg-gray-100 border border-red-300 rounded-lg p-6 text-left max-w-3xl mx-auto mt-8">
-                <h3 class="font-bold text-lg text-red-700 mb-3">ATENÇÃO: NORMAS DO PROCESSO AVALIATIVO</h3>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
+            
+            <div class="bg-black/20 border border-amber-600/30 rounded-lg p-6 text-left max-w-3xl mx-auto mt-8">
+                <h3 class="font-bold text-lg text-amber-500 mb-3">PROTOCOLO DE INTEGRIDADE DA AVALIAÇÃO</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-300">
                     <li>Esta avaliação é composta por questões objetivas e dissertativas de caráter eliminatório.</li>
                     <li>A avaliação possui tempo limite e não poderá ser pausada após iniciada.</li>
-                    <li>A perda de foco da janela (trocar de aba, minimizar) resultará na <strong class="text-red-700">REPROVAÇÃO SUMÁRIA</strong> do candidato.</li>
+                    <li>A perda de foco da janela (trocar de aba, minimizar) resultará na <strong class="text-amber-400">REPROVAÇÃO SUMÁRIA</strong> do candidato.</li>
                     <li>As respostas submetidas são finais e não passíveis de alteração.</li>
-                    <li>Qualquer tentativa de burlar o sistema será registrada e acarretará na exclusão permanente do candidato deste e de futuros processos seletivos.</li>
+                    <li>Qualquer tentativa de burlar o sistema, incluindo <strong class="text-amber-400">tentativas de copiar conteúdo ou usar o menu de contexto (clique direito)</strong>, será registrada e resultará em reprovação imediata.</li>
                 </ul>
             </div>
             <div class="mt-8">
-                <p class="mb-4 text-gray-600">Preencha seus dados para iniciar o processo avaliativo.</p>
+                <p class="mb-4 text-gray-400">Preencha seus dados para iniciar o processo avaliativo.</p>
                 <form id="start-form" class="flex flex-col items-center justify-center gap-4 max-w-xl mx-auto">
                     <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input id="ingame-name" type="text" placeholder="Nome (Dentro do Jogo)" class="bg-gray-50 border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <input id="real-name" type="text" placeholder="Nome (Fora do Jogo)" class="bg-gray-50 border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <input id="ingame-id" type="text" placeholder="ID (No Jogo)" class="bg-gray-50 border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <input id="discord-tag" type="text" placeholder="Discord (Ex: usuario#1234)" class="bg-gray-50 border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <input id="ingame-phone" type="text" placeholder="Telefone (No Jogo)" class="md:col-span-2 bg-gray-50 border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <input id="ingame-name" type="text" placeholder="Nome (Dentro do Jogo)" class="form-input rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2" required>
+                        <input id="real-name" type="text" placeholder="Nome (Fora do Jogo)" class="form-input rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2" required>
+                        <input id="ingame-id" type="text" placeholder="ID (No Jogo)" class="form-input rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2" required>
+                        <input id="discord-tag" type="text" placeholder="Discord (Ex: usuario#1234)" class="form-input rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2" required>
+                        <input id="ingame-phone" type="text" placeholder="Telefone (No Jogo)" class="md:col-span-2 form-input rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2" required>
                     </div>
                     <div class="mt-4 flex items-center justify-center gap-2">
-                        <input id="terms-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ring-offset-white focus:ring-2 cursor-pointer">
-                        <label for="terms-checkbox" class="ms-2 text-sm font-medium text-gray-600 cursor-pointer">Declaro ciência e concordo com todas as normas do processo avaliativo.</label>
+                        <input id="terms-checkbox" type="checkbox" class="w-4 h-4 text-amber-600 bg-gray-700 border-gray-600 rounded focus:ring-amber-500 ring-offset-gray-800 focus:ring-2 cursor-pointer">
+                        <label for="terms-checkbox" class="ms-2 text-sm font-medium text-gray-300 cursor-pointer">Declaro ciência e concordo com o Protocolo de Integridade.</label>
                     </div>
-                    <button type="submit" id="start-button" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-8 rounded-md transition-colors w-full md:w-1/2 mt-2 shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none" disabled>
+                    <button type="submit" id="start-button" class="btn-primary font-bold py-2 px-8 rounded-md transition-colors w-full md:w-1/2 mt-2 shadow-md" disabled>
                         INICIAR AVALIAÇÃO
                     </button>
                 </form>
@@ -86,22 +112,22 @@
 
         <!-- TELA DA PROVA OBJETIVA -->
         <div id="quiz-screen" class="hidden">
-            <div class="border-b-2 border-gray-300 pb-4 mb-6">
+            <div class="border-b-2 border-gray-700 pb-4 mb-6">
                  <div class="flex justify-between items-center">
-                    <h1 class="text-xl font-bold text-blue-800">Avaliação Objetiva</h1>
-                    <p id="timer" class="text-2xl font-mono font-bold text-red-600">25:00</p>
+                    <h1 class="text-xl font-bold text-accent">Avaliação Objetiva</h1>
+                    <p id="timer" class="text-2xl font-mono font-bold text-red-500">25:00</p>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                <div class="w-full bg-gray-700 rounded-full h-2.5 mt-2">
+                    <div id="progress-bar" class="bg-amber-500 h-2.5 rounded-full" style="width: 0%"></div>
                 </div>
             </div>
             <div id="question-container">
-                <p id="question-counter" class="font-semibold text-blue-700 mb-2"></p>
-                <h2 id="question-title" class="text-2xl font-semibold text-gray-800 mb-6"></h2>
+                <p id="question-counter" class="font-semibold text-amber-400 mb-2"></p>
+                <h2 id="question-title" class="text-2xl font-semibold text-gray-100 mb-6"></h2>
                 <div id="answer-options" class="space-y-3"></div>
             </div>
             <div class="mt-8 text-right">
-                <button id="next-button" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-8 rounded-md transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed shadow-md">
+                <button id="next-button" class="btn-primary font-bold py-2 px-8 rounded-md transition-colors shadow-md">
                     Confirmar
                 </button>
             </div>
@@ -109,38 +135,38 @@
         
         <!-- TELA DA PROVA DISSERTATIVA -->
         <div id="essay-screen" class="hidden">
-            <div class="border-b-2 border-gray-300 pb-4 mb-6">
+            <div class="border-b-2 border-gray-700 pb-4 mb-6">
                  <div class="flex justify-between items-center">
-                    <h1 class="text-xl font-bold text-blue-800">Avaliação Dissertativa</h1>
-                    <p id="essay-timer" class="text-2xl font-mono font-bold text-red-600">25:00</p>
+                    <h1 class="text-xl font-bold text-accent">Avaliação Dissertativa</h1>
+                    <p id="essay-timer" class="text-2xl font-mono font-bold text-red-500">25:00</p>
                 </div>
             </div>
             <div id="essay-question-container">
-                <p id="essay-question-counter" class="font-semibold text-blue-700 mb-2"></p>
-                <h2 id="essay-question-title" class="text-2xl font-semibold text-gray-800 mb-4"></h2>
-                <p class="text-sm text-gray-500 mb-4">Redija sua resposta no campo abaixo, observando a norma culta da língua portuguesa. A resposta deve ser clara, coesa e conter no mínimo 400 caracteres.</p>
-                <textarea id="essay-answer-textarea" rows="12" class="w-full bg-gray-50 border border-gray-300 rounded-md p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <p id="essay-question-counter" class="font-semibold text-amber-400 mb-2"></p>
+                <h2 id="essay-question-title" class="text-2xl font-semibold text-gray-100 mb-4"></h2>
+                <p class="text-sm text-gray-400 mb-4">Redija sua resposta no campo abaixo. A resposta deve ser clara, coesa e conter no mínimo 400 caracteres.</p>
+                <textarea id="essay-answer-textarea" rows="12" class="w-full form-input rounded-md p-4 text-gray-200"></textarea>
                 <p id="char-counter" class="text-right text-sm mt-1 text-gray-500">0 / 400</p>
             </div>
             <div class="mt-8 flex justify-between items-center">
-                <button id="essay-prev-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded-md transition-colors">Anterior</button>
-                <button id="essay-next-button" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-8 rounded-md transition-colors">Próxima</button>
-                <button id="finish-button" class="hidden bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-md transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">Finalizar Avaliação</button>
+                <button id="essay-prev-button" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-8 rounded-md transition-colors">Anterior</button>
+                <button id="essay-next-button" class="btn-primary font-bold py-2 px-8 rounded-md transition-colors">Próxima</button>
+                <button id="finish-button" class="hidden bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-md transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed">Finalizar Avaliação</button>
             </div>
         </div>
 
         <!-- TELA DE RESULTADO -->
         <div id="result-screen" class="hidden text-center">
-             <div id="result-icon" class="mb-4"></div>
+            <div id="result-icon" class="mb-4"></div>
             <h1 id="result-title" class="text-4xl font-bold mb-2"></h1>
-            <p id="result-subtitle" class="text-xl text-gray-600 mb-8"></p>
-            <div class="bg-gray-100 border border-gray-200 rounded-lg p-6 max-w-md mx-auto">
+            <p id="result-subtitle" class="text-xl text-gray-400 mb-8"></p>
+            <div class="bg-black/20 border border-gray-700 rounded-lg p-6 max-w-md mx-auto">
                 <p class="text-lg">Pontuação (Prova Objetiva)</p>
-                <p id="final-score" class="text-6xl font-bold text-blue-800 my-2"></p>
-                <p id="result-message" class="text-gray-700 mt-4"></p>
+                <p id="final-score" class="text-6xl font-bold text-accent my-2"></p>
+                <p id="result-message" class="text-gray-300 mt-4"></p>
             </div>
-             <button onclick="window.location.reload()" class="mt-8 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-md transition-colors">
-                Fechar
+            <button onclick="window.location.reload()" class="mt-8 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-md transition-colors">
+                Fechar Sistema
             </button>
         </div>
     </div>
@@ -168,25 +194,25 @@
         const minEssayChars = 400;
 
         const questions = [
-            { question: "Você testemunha seu parceiro agredindo um suspeito já rendido e desarmado. Qual sua ação imediata?", answers: ["Intervenho para cessar a agressão e reporto o ocorrido ao superior imediato.", "Apoio meu parceiro, pois o suspeito provavelmente mereceu.", "Finjo que não vi para não criar problemas com meu parceiro.", "Gravo a situação discretamente para usar contra meu parceiro no futuro."], correct: 0 },
-            { question: "Um oficial de alta patente oferece uma promoção em troca de 'vista grossa' em uma investigação sobre ele. Como você procede?", answers: ["Recuso a oferta e reporto a tentativa de suborno à Corregedoria imediatamente.", "Aceito a promoção, pois é uma oportunidade única na carreira.", "Recuso a oferta, mas não reporto para não sofrer retaliação.", "Peço um tempo para pensar, enquanto junto provas contra o oficial."], correct: 0 },
-            { question: "O que significa 'integridade' no contexto do trabalho policial?", answers: ["Ser leal aos seus colegas acima de tudo.", "Nunca admitir um erro para manter a autoridade.", "Fazer a coisa certa, mesmo quando ninguém está olhando, e aderir a um código moral forte.", "Sempre seguir as ordens, não importa quais sejam."], correct: 2 },
-            { question: "Ao fiscalizar a viatura de um colega antes do turno, você encontra uma arma pessoal não registrada no porta-luvas. Qual o procedimento correto?", answers: ["Ignoro a arma, pois cada um é responsável por seu equipamento.", "Retiro a arma e a guardo para mim.", "Questiono o colega sobre a arma e, dependendo da resposta, decido o que fazer.", "Comunico imediatamente ao superior de dia para que ele tome as medidas administrativas cabíveis."], correct: 3 },
-            { question: "Você é o primeiro a chegar em uma cena de crime com uma vítima baleada, mas ainda viva. Qual é a sua prioridade absoluta?", answers: ["Isolar a área com fita para preservar todas as evidências.", "Prestar os primeiros socorros à vítima e chamar o socorro médico imediatamente.", "Perseguir um suspeito que foi visto fugindo do local.", "Coletar a arma do crime para que não seja adulterada."], correct: 1 },
-            { question: "Durante uma abordagem, o cidadão se recusa a colocar as mãos na cabeça, mas permanece parado e sem demonstrar agressividade. Qual o nível de força apropriado?", answers: ["Uso imediato do taser para garantir a submissão.", "Escalonar a força com um golpe de cassetete para forçar a cooperação.", "Manter a verbalização, repetir a ordem de forma clara e firme, e solicitar apoio se necessário.", "Sacar a arma de fogo e apontar para o indivíduo para intimidá-lo."], correct: 2 },
-            { question: "Você está em uma perseguição e o veículo suspeito entra em uma área escolar movimentada. Qual é a decisão mais prudente?", answers: ["Continuar a perseguição a todo custo, pois a captura é a prioridade.", "Reduzir a velocidade, informar a central sobre a situação e o último local visto, e avaliar o cancelamento da perseguição para evitar danos colaterais.", "Atirar nos pneus do veículo suspeito, mesmo com o risco de atingir civis.", "Tentar uma manobra de PIT (Técnica de Imobilização de Precisão) imediatamente, apesar do alto risco."], correct: 1 },
-            { question: "Durante uma blitz de rotina, um veículo fura o bloqueio. Qual o primeiro passo do procedimento?", answers: ["Atirar contra o veículo em fuga.", "Abandonar a blitz e iniciar uma perseguição com todas as viaturas disponíveis.", "Manter a posição na blitz e apenas observar o veículo se afastar.", "Comunicar via rádio as características do veículo (placa, modelo, cor) e sua direção de fuga para que outras unidades possam interceptá-lo."], correct: 3 },
-            { question: "Um civil influente, conhecido por ter conexões com o prefeito, é pego em uma infração de trânsito grave. Seu superior ordena que você 'deixe pra lá'. Qual sua atitude?", answers: ["Obedeço a ordem para não contrariar um superior e uma figura poderosa.", "Aplico a lei conforme o procedimento padrão, ignorando a ordem ilegal, e me preparo para as consequências.", "Libero o civil, mas faço um relatório interno detalhado sobre a ordem recebida para me proteger.", "Finjo que vou liberar, mas aplico a multa assim que meu superior se afasta."], correct: 2 }
+            { question: "Um superior hierárquico emite uma ordem que contradiz diretamente um procedimento operacional padrão. Qual a sua conduta?", answers: ["Cumpro a ordem sem questionar, pois a hierarquia prevalece.", "Peço ao superior que confirme a ordem por escrito antes de cumpri-la, para ter um registro.", "Recuso-me a cumprir a ordem e reporto o fato à Corregedoria, pois a ordem é manifestamente ilegal.", "Informo ao superior sobre a inconsistência com o POP e peço esclarecimentos antes de agir."], correct: 3 },
+            { question: "Durante uma perseguição, seu parceiro efetua disparos de advertência para o alto, uma prática proibida. A ação não resulta em feridos. No relatório, ele omite os disparos. O que você faz?", answers: ["Assino o relatório como está para proteger meu parceiro.", "Confronto meu parceiro e exijo que ele corrija o relatório para incluir a verdade.", "Escrevo meu próprio relatório em separado, descrevendo os fatos como ocorreram.", "Relato o incidente verbalmente ao meu supervisor direto, deixando a decisão para ele."], correct: 2 },
+            { question: "Você recebe uma denúncia anônima sobre um colega que frequenta festas com criminosos conhecidos enquanto está fora de serviço. Qual o procedimento correto?", answers: ["Ignoro, pois a vida pessoal do colega não é da minha conta.", "Confronto o colega diretamente com a acusação.", "Inicio uma investigação informal por conta própria para verificar a veracidade da denúncia.", "Documento a denúncia e a encaminho formalmente para a cadeia de comando da Corregedoria."], correct: 3 },
+            { question: "Em uma cena de crime, você encontra uma grande quantia de dinheiro não relacionada ao crime principal. Seu parceiro sugere dividir o valor. Qual sua resposta?", answers: ["Concordo, pois o dinheiro não seria registrado mesmo.", "Recuso firmemente e garanto que todo o valor seja apreendido, catalogado e relatado como evidência.", "Finjo concordar e depois denuncio meu parceiro anonimamente.", "Digo que não quero minha parte, mas não o impeço de pegar a dele para evitar conflito."], correct: 1 },
+            { question: "O que constitui um 'Conflito de Interesses' para um agente da Corregedoria?", answers: ["Investigar qualquer policial com quem já tenha trabalhado no passado.", "Receber elogios de policiais que foram inocentados em investigações conduzidas por você.", "Investigar um caso envolvendo um familiar ou amigo próximo, ou um caso em que haja ganho pessoal com o resultado.", "Ter uma opinião formada sobre a culpa ou inocência de um policial antes de iniciar a investigação."], correct: 2 },
+            { question: "Qual é o objetivo primário da Corregedoria?", answers: ["Punir o maior número possível de policiais para 'limpar a corporação'.", "Proteger a reputação da instituição a todo custo, mesmo que signifique ocultar pequenos desvios.", "Assegurar que os policiais operem dentro da legalidade e dos padrões éticos, garantindo a confiança pública.", "Atuar como um órgão de defesa para policiais acusados injustamente."], correct: 2 },
+            { question: "Você é ordenado a participar de uma operação que, na sua avaliação técnica, é excessivamente arriscada e mal planejada. Como você procede?", answers: ["Recuso-me a participar, alegando falta de segurança.", "Participo da operação, mas faço um relatório posterior detalhando as falhas.", "Expresso minhas preocupações de forma respeitosa e técnica ao comandante da operação, sugerindo ajustes para mitigar os riscos.", "Comento sobre os riscos com outros colegas para criar um consenso contra a operação."], correct: 2 },
+            { question: "Ao final de uma abordagem bem-sucedida, o cidadão, agradecido, oferece um 'presente' em dinheiro para a equipe. Qual a ação correta?", answers: ["Aceito, pois é um sinal de gratidão da comunidade.", "Recuso educadamente, explicando que policiais são proibidos de aceitar gratificações por seu serviço.", "Peço que ele doe o valor para uma caridade da polícia.", "Aceito o dinheiro e o entrego ao meu superior para que ele decida o que fazer."], correct: 1 },
+            { question: "Qual a importância de manter a confidencialidade durante uma investigação interna?", answers: ["É crucial para evitar vazamentos à imprensa e proteger a reputação dos envolvidos.", "Garante que os policiais investigados não possam preparar suas defesas adequadamente.", "Previne a contaminação de testemunhas, a destruição de provas e garante a integridade do processo.", "É apenas uma formalidade, já que as informações sempre acabam vazando."], correct: 2 }
         ];
 
         const essayQuestions = [
             {
-                title: "Estudo de Caso 01: Conflito de Lealdade e Dever",
-                question: "Durante uma patrulha, você e seu parceiro, um policial exemplar prestes a se aposentar, abordam um veículo por uma infração leve. O condutor é o filho do seu parceiro, que está claramente embriagado. Seu parceiro pede para você 'aliviar' e resolver a situação 'em família', sem registro oficial, para não arruinar o futuro do rapaz e a sua própria reputação. Descreva, passo a passo, sua linha de ação e raciocínio, desde a abordagem inicial até a conclusão do evento. Justifique suas decisões com base nos princípios da ética, legalidade e procedimento operacional padrão."
+                title: "Estudo de Caso 01: Crise de Imagem e Relações Públicas",
+                question: "Um vídeo de um policial usando linguagem agressiva e força moderada para prender um cidadão viraliza nas redes sociais. O vídeo, editado, omite o fato de que o cidadão estava armado e havia ameaçado o policial momentos antes. A opinião pública está inflamada. Como membro da Corregedoria, redija um plano de ação que contemple: 1) os passos imediatos da investigação interna para apurar a conduta do policial e 2) os elementos-chave para uma nota oficial à imprensa, buscando equilibrar a transparência, a proteção da integridade da investigação e a restauração da confiança da comunidade."
             },
             {
-                title: "Estudo de Caso 02: Gerenciamento de Crise Operacional",
-                question: "Você é o oficial mais antigo em uma cena de tiroteio que acabou de cessar. A situação é caótica: um civil foi atingido no fogo cruzado, um dos suspeitos fugiu, e um de seus oficiais subalternos, em pânico, contaminou a principal evidência (a arma do crime). Descreva detalhadamente seu plano de ação para gerenciar esta crise. Quais são suas três prioridades imediatas? Como você irá delegar tarefas, assegurar a cena, lidar com o oficial em pânico e quais informações cruciais constarão no seu relatório preliminar para o comando?"
+                title: "Estudo de Caso 02: Investigação de Corrupção Sistêmica",
+                question: "Você recebe uma denúncia anônima detalhada, mas sem provas concretas, de que uma unidade específica do patrulhamento tático está sistematicamente 'extraviado' uma parte das drogas apreendidas em operações para revendê-las. A denúncia sugere que o comandante da unidade é conivente. Descreva seu plano de investigação sigiloso para confirmar ou refutar a denúncia. Detalhe quais métodos investigativos (ex: vigilância, auditoria de evidências, informantes) seriam mais eficazes e como você gerenciaria o risco de vazamentos e a forte lealdade dentro da unidade para garantir a segurança da investigação e dos envolvidos."
             }
         ];
 
@@ -222,6 +248,7 @@
         let candidateData = {};
         let currentEssayIndex = 0;
         let essayAnswers = new Array(essayQuestions.length).fill("");
+        let quizActive = false;
 
         // --- LÓGICA DO QUIZ ---
         termsCheckbox.addEventListener('change', () => { startButton.disabled = !termsCheckbox.checked; });
@@ -234,14 +261,17 @@
                 ingamePhone: document.getElementById('ingame-phone').value,
             };
             if (Object.values(candidateData).some(val => val.trim() === '')) { alert('Por favor, preencha todos os campos para continuar.'); return; }
-            if (!termsCheckbox.checked) { alert('Você precisa concordar com as normas do processo avaliativo para iniciar.'); return; }
+            if (!termsCheckbox.checked) { alert('Você precisa concordar com o Protocolo de Integridade para iniciar.'); return; }
             
+            quizActive = true;
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
             quizScreen.classList.add('fade-in');
             startTimer(quizDurationInMinutes * 60);
             displayQuestion();
             document.addEventListener('visibilitychange', handleVisibilityChange);
+            document.addEventListener('contextmenu', handleContextMenu);
+            document.addEventListener('copy', handleCopy);
         });
 
         function displayQuestion() {
@@ -256,7 +286,7 @@
                 const optionElement = document.createElement('div');
                 optionElement.className = 'answer-option fade-in p-4 border rounded-md cursor-pointer transition-all';
                 optionElement.style.animationDelay = `${index * 100}ms`;
-                optionElement.innerHTML = `<span class="font-semibold text-blue-600 mr-3">[${String.fromCharCode(65 + index)}]</span> ${answer}`;
+                optionElement.innerHTML = `<span class="font-semibold text-accent mr-3">[${String.fromCharCode(65 + index)}]</span> ${answer}`;
                 optionElement.dataset.index = index;
                 optionElement.addEventListener('click', () => selectAnswer(index));
                 answerOptionsContainer.appendChild(optionElement);
@@ -286,6 +316,10 @@
         function startTimer(duration) {
             let timer = duration;
             timerInterval = setInterval(() => {
+                if (!quizActive) {
+                    clearInterval(timerInterval);
+                    return;
+                }
                 let minutes = parseInt(timer / 60, 10);
                 let seconds = parseInt(timer % 60, 10);
                 minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -328,7 +362,7 @@
         function updateCharCounter() {
             const count = essayAnswerTextarea.value.length;
             charCounter.textContent = `${count} / ${minEssayChars}`;
-            charCounter.classList.toggle('text-green-600', count >= minEssayChars);
+            charCounter.classList.toggle('text-green-400', count >= minEssayChars);
             charCounter.classList.toggle('text-gray-500', count < minEssayChars);
         }
 
@@ -342,9 +376,15 @@
         finishButton.addEventListener('click', () => endQuiz());
 
         function endQuiz(options = {}) {
-            const { timeOut = false, cheated = false } = options;
+            if (!quizActive) return;
+            quizActive = false;
+
+            const { timeOut = false, cheated = null } = options;
             clearInterval(timerInterval);
             document.removeEventListener('visibilitychange', handleVisibilityChange);
+            document.removeEventListener('contextmenu', handleContextMenu);
+            document.removeEventListener('copy', handleCopy);
+
             quizScreen.classList.add('hidden');
             essayScreen.classList.add('hidden');
             resultScreen.classList.remove('hidden');
@@ -361,27 +401,28 @@
             let finalResultText = "";
 
             if (cheated) {
-                resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>`;
-                resultTitle.textContent = "REPROVADO"; resultTitle.classList.add('text-red-600');
-                resultSubtitle.textContent = "Violação das Normas do Processo"; finalScore.textContent = "0%";
-                resultMessage.textContent = "O sistema registrou uma violação das normas. Sua candidatura foi indeferida.";
-                finalResultText = "REPROVADO (VIOLAÇÃO)";
+                resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>`;
+                resultTitle.textContent = "REPROVADO"; resultTitle.classList.add('text-red-500');
+                resultSubtitle.textContent = `Violação do Protocolo: ${cheated}`;
+                finalScore.textContent = "0%";
+                resultMessage.textContent = "Sua candidatura foi indeferida por violar as normas de integridade da avaliação.";
+                finalResultText = `REPROVADO (VIOLAÇÃO: ${cheated})`;
             } else if (timeOut) {
-                resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-                resultTitle.textContent = "REPROVADO"; resultTitle.classList.add('text-red-600');
+                resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                resultTitle.textContent = "REPROVADO"; resultTitle.classList.add('text-red-500');
                 resultSubtitle.textContent = "Tempo Esgotado";
                 resultMessage.textContent = "O candidato não concluiu a avaliação dentro do tempo limite estabelecido.";
                 finalResultText = "REPROVADO (TEMPO ESGOTADO)";
             } else {
                 if (percentage >= passingScorePercentage) {
-                    resultIcon.innerHTML = `<svg class="w-24 h-24 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-                    resultTitle.textContent = "AVALIAÇÃO CONCLUÍDA"; resultTitle.classList.add('text-green-600');
+                    resultIcon.innerHTML = `<svg class="w-24 h-24 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                    resultTitle.textContent = "AVALIAÇÃO CONCLUÍDA"; resultTitle.classList.add('text-green-500');
                     resultSubtitle.textContent = "Resultado da Prova Objetiva";
                     resultMessage.textContent = "Sua pontuação na prova objetiva foi satisfatória. Suas respostas dissertativas serão analisadas pela banca avaliadora. Aguarde contato.";
                     finalResultText = "APROVADO (OBJETIVA)";
                 } else {
-                    resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-                    resultTitle.textContent = "REPROVADO"; resultTitle.classList.add('text-red-600');
+                    resultIcon.innerHTML = `<svg class="w-24 h-24 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                    resultTitle.textContent = "REPROVADO"; resultTitle.classList.add('text-red-500');
                     resultSubtitle.textContent = "Pontuação Insuficiente";
                     resultMessage.textContent = "Sua pontuação na prova objetiva não atingiu o mínimo necessário. Agradecemos seu interesse.";
                     finalResultText = "REPROVADO (PONTUAÇÃO INSUFICIENTE)";
@@ -400,8 +441,8 @@
             form.querySelector('[name="Telefone (Jogo)"]').value = candidateData.ingamePhone;
             form.querySelector('[name="Resultado Final (Objetiva)"]').value = finalResult;
             form.querySelector('[name="Pontuação (Objetiva)"]').value = scoreText;
-            form.querySelector('[name="Resposta Dissertativa 1"]').value = `--- ${essayQuestions[0].title} ---\n${essayAnswers[0]}`;
-            form.querySelector('[name="Resposta Dissertativa 2"]').value = `--- ${essayQuestions[1].title} ---\n${essayAnswers[1]}`;
+            form.querySelector('[name="Resposta Dissertativa 1"]').value = `--- ${essayQuestions[0].title} ---\n${essayAnswers[0] || 'Não respondida'}`;
+            form.querySelector('[name="Resposta Dissertativa 2"]').value = `--- ${essayQuestions[1].title} ---\n${essayAnswers[1] || 'Não respondida'}`;
 
             let detailedAnswers = "";
             questions.forEach((q, index) => {
@@ -419,9 +460,10 @@
         }
 
         // --- FUNÇÕES ANTI-CHEAT ---
-        function handleVisibilityChange() { if (document.hidden) { endQuiz({ cheated: true }); } }
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('keydown', e => { if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) { e.preventDefault(); } });
+        function handleVisibilityChange() { if (document.hidden) { endQuiz({ cheated: 'Tentativa de alternar abas' }); } }
+        function handleContextMenu(e) { e.preventDefault(); endQuiz({ cheated: 'Tentativa de usar o menu de contexto (clique direito)' }); }
+        function handleCopy(e) { e.preventDefault(); endQuiz({ cheated: 'Tentativa de copiar conteúdo' }); }
     </script>
 </body>
 </html>
+
